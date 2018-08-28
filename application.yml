@@ -1,0 +1,105 @@
+# --------------------------------------------------------
+# These properties are the local development properties.
+#
+# Spring boot uses this file when the application is launched
+# with the root of the project set as the working directory.
+# These properties take precedence over the classpath
+# application.yml.
+#
+# Using gradle from the commandline means the working
+# directory is by default the project root.
+#
+# Using Intellij you need to setup your run config so the
+# working directory is the project root.
+# --------------------------------------------------------
+server:
+  port: 8084
+
+security:
+  basic:
+    enabled: "${SECURITY_ENABLED:true}"
+  user:
+    name: "admin"
+    password: "admin"
+
+spring:
+  session:
+    enabled: "${SESSION_CLUSTER_ENABLED:true}"
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/iat"
+    username: "${DB_USER}"
+    password: "${DB_PASSWORD}"
+    validationQuery: "SELECT 1"
+  jpa:
+    hibernate:
+      ddl-auto: "validate"
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  http:
+    multipart:
+      location: "${java.io.tmpdir}"
+      maxFileSize: "10MB"
+
+itembank:
+  host: "https://gitlab-dev.smarterbalanced.org"
+  accessToken: "${GITLAB_ACCESS_TOKEN}"
+  user: "${GITLAB_USER}"
+  password: "${GITLAB_PASSWORD}"
+  group: "${GITLAB_GROUP}"
+  localBaseDir: "${HOME}/ItemBank"
+  apiVersion: "/api/v4"
+  bankKey: "187"
+  systemVersion: "iat-18"
+  itemBankViewerUrl: "http://itemreview.smarterbalanced.org/iris/Pages/item.xhtml?bankId=${itembank.bankKey}&type=%s&id=%s"
+  aws:
+    endpointUrl: "https://s3.us-east-2.amazonaws.com"
+    region: "us-east-2"
+    bucketName: "${itembank.group}"
+    accessKey: "${IAT_AWS_ACCESS_KEY}"
+    secretKey: "${IAT_AWS_ACCESS_SECRET}"
+
+tasks:
+  itemCleanupThresholdMillis : "7200000"
+  itemCleanupRunEveryMillis: "7200000"
+
+# cache expiration for things like workflow status
+cache:
+  expirationSeconds: 30
+
+logging:
+  level:
+    org:
+      opentestsystem:
+        ap:
+          ims: "debug"
+          common: "debug"
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: "jdbc:postgresql://imrt-qa-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+
+flyway:
+  enabled: true
+  url: "jdbc:postgresql://imrt-qa-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+
+itembank:
+  group: "iat-development"
+
+---
+spring:
+  profiles: uat
+  datasource:
+    url: "jdbc:mysql://iat-uat-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:3306/iat?useSSL=false"
+
+flyway:
+  enabled: false
+  url: "jdbc:mysql://iat-uat-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:3306/iat?useSSL=false"
+
+itembank:
+  group: "iat-uat"
+
