@@ -19,6 +19,8 @@ cache:
 itembank:
   test:
     enabled: "true"
+  events:
+    receiverEnabled: false
 
 data:
   loader:
