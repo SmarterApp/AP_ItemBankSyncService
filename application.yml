@@ -60,9 +60,14 @@ itembank:
     bucketName: "${itembank.group}"
     accessKey: "${IAT_AWS_ACCESS_KEY}"
     secretKey: "${IAT_AWS_ACCESS_SECRET}"
+  events:
+    receiverEnabled: true
+    exchange: "item_event_exchange"
+    queue: "item_event_queue"
+    eventKey: "item.event.*"
 
 tasks:
-  itemCleanupThresholdMillis : "7200000"
+  itemCleanupThresholdMillis: "7200000"
   itemCleanupRunEveryMillis: "7200000"
 
 # cache expiration for things like workflow status
@@ -83,10 +88,6 @@ spring:
   datasource:
     url: "jdbc:postgresql://imrt-qa-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
 
-flyway:
-  enabled: true
-  url: "jdbc:postgresql://imrt-qa-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
-
 itembank:
   group: "iat-development"
 
@@ -95,10 +96,6 @@ spring:
   profiles: uat
   datasource:
     url: "jdbc:mysql://iat-uat-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:3306/iat?useSSL=false"
-
-flyway:
-  enabled: false
-  url: "jdbc:mysql://iat-uat-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:3306/iat?useSSL=false"
 
 itembank:
   group: "iat-uat"
