@@ -42,6 +42,16 @@ spring:
     multipart:
       location: "${java.io.tmpdir}"
       maxFileSize: "10MB"
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 5
+          max-interval: 10000
+          multiplier: 2.0
+          stateless: true
 
 itembank:
   host: "https://gitlab-dev.smarterbalanced.org"
