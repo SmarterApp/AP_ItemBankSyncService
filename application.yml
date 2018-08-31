@@ -61,11 +61,11 @@ itembank:
     accessKey: "${IAT_AWS_ACCESS_KEY}"
     secretKey: "${IAT_AWS_ACCESS_SECRET}"
   events:
-    exchange: "item_event_exchange"
-    queue: "item_event_queue"
-    eventKey: "item.event.*"
-    error-queue: "item_event_queue.dlq"
-    error-event-key: "error.item.event.*"
+    exchange: "iat_item_event_exchange"
+    queue: "iat_item_event_queue"
+    eventKey: "iat.item.event.*"
+    error-queue: "iat_item_event_queue.dlq"
+    error-event-key: "error.iat.item.event.*"
     receiver:
       enabled: true
       initial-interval: 1000
@@ -88,6 +88,13 @@ logging:
         ap:
           ims: "debug"
           common: "debug"
+
+---
+spring:
+  profiles: dev-rabbit
+  rabbitmq:
+    username: "fw-imrt"
+    password: "${IAT_RABBIT_PASSWORD}"
 
 ---
 spring:
