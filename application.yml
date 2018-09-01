@@ -63,7 +63,7 @@ itembank:
   events:
     exchange: "iat_item_event_exchange"
     queue: "iat_item_event_queue"
-    eventKey: "iat.item.event.*"
+    event-key: "iat.item.event.*"
     error-queue: "iat_item_event_queue.dlq"
     error-event-key: "error.iat.item.event.*"
     receiver:
