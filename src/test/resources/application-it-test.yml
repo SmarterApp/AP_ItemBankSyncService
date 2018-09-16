@@ -9,27 +9,24 @@ security:
 spring:
   session:
     enabled: "false"
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-
-cache:
-  expirationSeconds: 30
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
 
 itembank:
   test:
     enabled: "true"
-  events:
-    receiverEnabled: false
-
-data:
-  loader:
-    enabled: "true"
+  enabled:
+    sync: false
+    database: false
+    consumer: false
 
 tasks:
   itemCleanupThresholdMillis : "30000"
   itemCleanupRunEveryMillis: "30000"
-
 
 ---
 spring:
