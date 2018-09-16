@@ -54,8 +54,10 @@ itembank:
   bankKey: "187"
   systemVersion: "iat-18"
   itemBankViewerUrl: "http://itemreview.smarterbalanced.org/iris/Pages/item.xhtml?bankId=${itembank.bankKey}&type=%s&id=%s"
-  manager:
-    enabled: true
+  enabled:
+    sync: true
+    database: true
+    consumer: true
   aws:
     endpointUrl: "https://s3.us-east-2.amazonaws.com"
     region: "us-east-2"
@@ -69,7 +71,6 @@ itembank:
     error-queue: "iat_item_event_queue.dlq"
     error-event-key: "error.iat.item.event.*"
     receiver:
-      enabled: true
       initial-interval: 1000
       max-attempts: 5
       max-interval: 10000
