@@ -56,7 +56,7 @@ itembank:
   systemVersion: "iat-25"
   itemBankViewerUrl: "http://itemreview.smarterbalanced.org/iris/Pages/item.xhtml?bankId=${itembank.bankKey}&type=%s&id=%s"
   enabled:
-    sync: true
+    broker: true
     database: true
     consumer: true
   aws:
@@ -67,15 +67,10 @@ itembank:
     secretKey: "${IAT_AWS_ACCESS_SECRET}"
   events:
     exchange: "iat_item_event_exchange"
-    queue: "iat_item_event_queue"
-    event-key: "iat.item.event.*"
-    error-queue: "iat_item_event_queue.dlq"
-    error-event-key: "error.iat.item.event.*"
-    receiver:
-      initial-interval: 1000
-      max-attempts: 5
-      max-interval: 10000
-      multiplier: 2.0
+    queue:
+      queueName: "iat_item_event_queue"
+    errorQueue:
+      queueName: "iat_item_event_queue.dlq"
 
 tasks:
   itemCleanupThresholdMillis: "7200000"
