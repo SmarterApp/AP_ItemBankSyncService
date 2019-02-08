@@ -52,7 +52,7 @@ itembank:
   group: "${GITLAB_GROUP}"
   localBaseDir: "${HOME}/ItemBank"
   apiVersion: "/api/v4"
-  bankKey: "187"
+  bankKey: "200"
   systemVersion: "iat-25"
   itemBankViewerUrl: "http://itemreview.smarterbalanced.org/iris/Pages/item.xhtml?bankId=${itembank.bankKey}&type=%s&id=%s"
   enabled:
@@ -112,4 +112,13 @@ spring:
 
 itembank:
   group: "iat-uat"
+
+---
+spring:
+  profiles: prod-mirror
+  datasource:
+    url: "jdbc:postgresql://tims-prod-mirror.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+
+itembank:
+  group: "iat-prod-mirror"
 
