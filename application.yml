@@ -113,3 +113,12 @@ spring:
 itembank:
   group: "iat-uat"
 
+---
+spring:
+  profiles: prod-mirror
+  datasource:
+    url: "jdbc:postgresql://tims-prod-mirror.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+
+itembank:
+  group: "iat-prod-mirror"
+
