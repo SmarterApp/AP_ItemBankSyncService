@@ -13,10 +13,11 @@ VOLUME ["/tmp"]
 
 COPY ap-item-bank-sync-service.jar /
 
-#RUN apk add --update curl && rm -rf /var/cache/apk/*
-RUN apk --no-cache add curl
+RUN apk add --update curl && rm -rf /var/cache/apk/*
 
-RUN apk --no-cache add git
+RUN apk add --update jq && rm -rf /var/cache/apk/*
+
+RUN apk add --update git && rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["/usr/bin/java"]
 
