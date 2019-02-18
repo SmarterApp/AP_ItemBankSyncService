@@ -5,7 +5,7 @@
 # The app can be enabled to pull its
 # configuration from a Spring Cloud Config-Server.
 #
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM openjdk:8-jdk-alpine
 
 MAINTAINER Smarter Balanced "opentestsystem.org"
 
@@ -13,6 +13,7 @@ VOLUME ["/tmp"]
 
 COPY ap-item-bank-sync-service.jar /
 
+#RUN apk add --update curl && rm -rf /var/cache/apk/*
 RUN apk --no-cache add curl
 
 RUN apk --no-cache add git
