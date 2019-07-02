@@ -71,6 +71,7 @@ itembank:
       queueName: "iat_item_event_queue"
     errorQueue:
       queueName: "iat_item_event_queue.dlq"
+      eventKey: "error.itembank.sync.iat.item.event.*"
 
 tasks:
   itemCleanupThresholdMillis: "7200000"
