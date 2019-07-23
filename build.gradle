@@ -100,8 +100,6 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
-    compile 'com.github.cliftonlabs:json-simple:3.1.0'
-
     compile 'com.lmax:disruptor:3.3.7'
 
     compile 'io.github.openfeign:feign-gson:9.3.1'
