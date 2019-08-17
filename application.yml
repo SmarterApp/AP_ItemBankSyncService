@@ -45,6 +45,7 @@ spring:
       maxFileSize: "10MB"
 
 itembank:
+  systemVersion: "iat-41"
   host: "https://gitlab-dev.smarterbalanced.org"
   accessToken: "${GITLAB_ACCESS_TOKEN}"
   user: "${GITLAB_USER}"
@@ -52,8 +53,6 @@ itembank:
   group: "${GITLAB_GROUP}"
   localBaseDir: "${HOME}/ItemBank"
   apiVersion: "/api/v4"
-  bankKey: "200"
-  systemVersion: "iat-25"
   itemBankViewerUrl: "http://itemreview.smarterbalanced.org/iris/Pages/item.xhtml?bankId=${itembank.bankKey}&type=%s&id=%s"
   enabled:
     broker: true
@@ -63,6 +62,7 @@ itembank:
     endpointUrl: "https://s3.us-east-2.amazonaws.com"
     region: "us-east-2"
     bucketName: "${itembank.group}"
+    versionedBucketName: "${itembank.group}-versioned"
     accessKey: "${IAT_AWS_ACCESS_KEY}"
     secretKey: "${IAT_AWS_ACCESS_SECRET}"
   events:
@@ -71,6 +71,7 @@ itembank:
       queueName: "iat_item_event_queue"
     errorQueue:
       queueName: "iat_item_event_queue.dlq"
+      eventKey: "error.itembank.sync.iat.item.event.*"
 
 tasks:
   itemCleanupThresholdMillis: "7200000"
@@ -100,25 +101,36 @@ spring:
   profiles: dev
   datasource:
     url: "jdbc:postgresql://imrt-qa-db.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+    tomcat:
+      max-active: 2
 
 itembank:
-  group: "iat-development"
+  aws:
+    bucketName: "iat-development"
+    versionedBucketName: "iat-development-versioned"
 
 ---
 spring:
   profiles: uat
   datasource:
     url: "jdbc:postgresql://imrt-db-uat-aurora.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+    tomcat:
+      max-active: 2
 
 itembank:
-  group: "iat-uat"
+  aws:
+    bucketName: "iat-uat"
+    versionedBucketName: "iat-uat-versioned"
 
 ---
 spring:
   profiles: prod-mirror
   datasource:
     url: "jdbc:postgresql://tims-prod-mirror.cjqp2fdamfoh.us-east-2.rds.amazonaws.com:5432/iat"
+    tomcat:
+      max-active: 2
 
 itembank:
-  group: "iat-prod-mirror"
-
+  aws:
+    bucketName: "iat-prod-mirror"
+    versionedBucketName: "iat-prod-mirror-versioned"
