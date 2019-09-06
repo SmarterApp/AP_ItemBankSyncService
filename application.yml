@@ -105,6 +105,7 @@ spring:
       max-active: 2
 
 itembank:
+  group: "iat-development"
   aws:
     bucketName: "iat-development"
     versionedBucketName: "iat-development-versioned"
@@ -118,6 +119,7 @@ spring:
       max-active: 2
 
 itembank:
+  group: "iat-uat"
   aws:
     bucketName: "iat-uat"
     versionedBucketName: "iat-uat-versioned"
@@ -131,6 +133,7 @@ spring:
       max-active: 2
 
 itembank:
+  group: "iat-prod-mirror"
   aws:
     bucketName: "iat-prod-mirror"
     versionedBucketName: "iat-prod-mirror-versioned"
