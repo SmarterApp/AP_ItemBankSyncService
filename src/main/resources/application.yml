@@ -20,10 +20,70 @@ management:
 api:
   context-path: "/api"
 
+security:
+  basic:
+    enabled: \${SECURITY_ENABLED:true}
+
 spring:
   jackson:
     deserialization:
       fail_on_unknown_properties: false
     mapper:
       sort_properties_alphabetically: true
+  session:
+    enabled: \${SESSION_CLUSTER_ENABLED:true}
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/iat"
+    username: \${DB_USER}
+    password: \${DB_PASSWORD}
+    validationQuery: "SELECT 1"
+    maxActive: 2
+  jpa:
+    hibernate:
+      ddl-auto: "validate"
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  http:
+    multipart:
+      location: \${java.io.tmpdir}
+      maxFileSize: "10MB"
 
+itembank:
+  systemVersion: "iat-41"
+  host: "https://gitlab-dev.smarterbalanced.org"
+  accessToken: \${GITLAB_ACCESS_TOKEN}
+  user: \${GITLAB_USER}
+  password: \${GITLAB_PASSWORD}
+  group: \${GITLAB_GROUP}
+  localBaseDir: \${HOME}/ItemBank
+  apiVersion: "/api/v4"
+  itemBankViewerUrl: "http://itemreview.smarterbalanced.org/iris/Pages/item.xhtml?bankId=\${itembank.bankKey}&type=%s&id=%s"
+  enabled:
+    broker: true
+    database: true
+    consumer: true
+  aws:
+    endpointUrl: "https://s3.us-east-2.amazonaws.com"
+    region: "us-east-2"
+    bucketName: \${itembank.group}
+    versionedBucketName: \${itembank.group}-versioned
+    accessKey: \${IAT_AWS_ACCESS_KEY}
+    secretKey: \${IAT_AWS_ACCESS_SECRET}
+  events:
+    exchange: "iat_item_event_exchange"
+    queue:
+      queueName: "iat_item_event_queue"
+    errorQueue:
+      queueName: "iat_item_event_queue.dlq"
+      eventKey: "error.itembank.sync.iat.item.event.*"
+
+tasks:
+  itemCleanupThresholdMillis: "7200000"
+  itemCleanupRunEveryMillis: "7200000"
+
+# cache expiration for things like workflow status
+cache:
+  expirationSeconds: 30
